@@ -1,35 +1,29 @@
-# Chapter One V10.8 QA report
+# Chapter One V10.10 QA report
 
 ## Passed — static checks
-
-- `node --check netlify/functions/ai.mjs`
-- `node --check netlify/functions/covers.mjs`
-- Extracted inline JavaScript from `index.html` and passed `node --check`.
+- Inline JavaScript extracted from `index.html` passed `node --check`.
+- `netlify/functions/ai.mjs` and `netlify/functions/covers.mjs` passed `node --check`.
 - `netlify.toml` still publishes `.` and uses `netlify/functions`.
-- Translator file picker still accepts `.pdf`, `.docx`, `.txt`, `.md`; PDF.js and Mammoth extraction paths remain.
-- The Canvas cover source defines exactly four 672×1008 portrait designs and returns JPEG data URLs; the cover picker uses this local function. The design logic was statically checked, not visually browser-tested.
-- Browser source does not call `/api/covers`; the legacy Netlify cover function returns HTTP 410 to prevent accidental paid image generation.
-- Selected genre is passed to Create outline, Story outline, chapter writing and chapter continuation.
-- Existing Supabase project URL, publishable key and `supabase-schema.sql` were preserved.
+- Existing Translator PDF/DOCX/TXT/MD input code paths are retained.
+- Existing Supabase URL/publishable key and `supabase-schema.sql` are unchanged from V10.9 source.
+- New UI assets include the user-provided logo and reference screenshot.
+- Bottom navigation now contains exactly four destinations in the requested order.
+- New Import, Settings and Profile/Recently Deleted elements exist in the page markup.
 
 ## Passed — mocked endpoint tests
+Run with `node --test tests/ai-routing.test.mjs`.
+- AI POST without/with invalid Supabase access token is rejected before provider requests.
+- Amharic route uses Gemini Free Tier first and only the exact pinned OpenRouter Gemma `:free` backup.
+- Amharic never calls OpenAI, including quota failures.
+- English/Arabic retain the existing OpenAI route.
+- Genre is included in the Amharic book prompts.
+- Public status response does not reveal provider key values.
 
-Run with `node tests/ai-routing.test.mjs`.
-
-- AI POST without an access token returns HTTP 401 before any provider request.
-- AI POST with an invalid Supabase token returns HTTP 401 before any provider request.
-- Signed-in Amharic request uses Gemini Free Tier first.
-- Gemini quota response triggers only the pinned OpenRouter Gemma `:free` variant when the optional backup key is configured.
-- Amharic never calls OpenAI, including when an OpenAI key is present but free Amharic keys are missing or both free providers return quota errors.
-- English and Arabic continue to use the existing OpenAI route.
-- Genre is included in Amharic outline/chapter prompts.
-- Public GET status does not reveal configured API key values.
-
-## Not tested — must be reported honestly
-
-- No live Gemini or OpenRouter API request was made; real account keys, free-tier quota, regional availability and Amharic literary quality must be tested by the owner after deployment.
-- No OpenAI request was made in QA, to avoid spending existing API credits.
-- No live Supabase Auth call was made; auth tests used a mocked `/auth/v1/user` response. The production session validation must be checked after deployment.
-- No real Android device file-picker / PDF / DOCX UI test was performed.
-- Scanned image-only PDFs still need OCR; this release extracts selectable text only.
-- No GitHub repository creation, push, or Netlify deployment was performed by the package builder. Manus must report actual repo URL, commit SHA and deployment result if it performs them.
+## Not tested — report honestly
+- No live Gemini, OpenRouter or OpenAI requests were made.
+- No live Supabase Auth/cloud sync interaction was run.
+- No full interactive Android Chrome test or actual local PDF file-picker test was run.
+- No full visual screenshot comparison was completed in a real browser.
+- Scanned PDFs still require OCR; only selectable text is extracted.
+- Daily reminder relies on browser notifications while the app is open/regains focus. Background delivery after browser closure needs a push service and is not included.
+- No GitHub push or Netlify deployment was performed by the package builder.

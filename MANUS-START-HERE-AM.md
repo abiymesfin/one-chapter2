@@ -1,21 +1,18 @@
-# Chapter One V10.8 — ለManus AI መመሪያ (አማርኛ)
+# Chapter One V10.10 — ለManus AI መጀመሪያ መመሪያ
 
-1. V10.8 ZIP ፋይሉን Manus AI ውስጥ Upload አድርግ።
-2. `MANUS-PROMPT.md` ክፈትና ውስጡን ሙሉ በሙሉ Copy/Paste አድርግ።
-3. Manus ከGitHub/Netlify ጋር ካልተገናኘ Authorize አድርግ። GitHub Token ወይም API Key በChat ውስጥ አትላክ።
-4. ነባሩን private `chapter-one` repository እንዲጠቀም ወይም ካልኖረ እንዲፈጥር፣ `main` ላይ Push እንዲያደርግ መመሪያው ይነግረዋል።
-5. ነባሩን `one-chapter` Netlify site ብቻ እንዲጠቀም ይመራዋል። አዲስ duplicate site አይፍጠር።
+1. ከዚህ ZIP ውስጥ ያለውን `chapterone_work` ፕሮጀክት ወደ Manus AI upload አድርግ።
+2. `MANUS-PROMPT.md` ክፈት፤ ሙሉ ጽሑፉን Copy አድርገህ Manus ላይ Paste አድርግ።
+3. ሁለቱ የማጣቀሻ ምስሎች `assets/` ውስጥ አሉ። `chapter-one-ui-reference.jpg` የምትፈልገው ዲዛይን ነው፤ `chapter-one-logo.png` ደግሞ የላክኸው ሎጎ ነው።
+4. Manus የተገናኘውን የGitHub `chapter-one` repository እና የNetlify `one-chapter` site ብቻ እንዲጠቀም አዝዘዋል። አዲስ duplicate site እንዳይፈጥር ተገልጿል።
+5. ከመጨረሻው በኋላ Manus የሰጠውን GitHub commit SHA፣ deployment status እና test report አምጣልኝ።
 
-## የAI Keys ማስገባት
+## V10.10 የተጨመሩ ነገሮች
+- አዲሱ cream / black design እና የላክኸው logo።
+- አራት የbottom navigation አይኮኖች፦ Home, Library/File, Settings, Profile።
+- Import Book ላይ Direct Import እና Import & Translate ሁለት አማራጮች።
+- Profile → Recently Deleted → Restore / Permanently Delete።
+- Settings → Daily Reading Reminder እና Reader Appearance።
 
-- Gemini ነፃ API Key: https://aistudio.google.com/ ላይ በFree Tier ፍጠር። Paid billing አታገናኝ።
-- አማራጭ OpenRouter Free backup key: https://openrouter.ai/settings/keys ላይ ፍጠር፤ credits አትግዛ።
-- Netlify → Site configuration → Environment variables → Functions scope ውስጥ `GEMINI_API_KEY` እና ካለ `OPENROUTER_API_KEY` ጨምር።
-- ነባሩ `OPENAI_API_KEY` ለEnglish/Arabic ብቻ ይቆይ። እነዚህ የOpenAI API ጥሪዎች ክፍያ ሊያስከትሉ ይችላሉ። Amharic በOpenAI ፈጽሞ አይሄድም።
-- `SUPABASE_URL` እና `SUPABASE_PUBLISHABLE_KEY` በsource ውስጥ ያሉ የpublic client values ናቸው፤ Manus ከindex.html እንዳሉ ያረጋግጥ። Optional Netlify override አድርጎ ማስገባት ይችላል። `service_role` key በፍጹም አይጠቀም።
+**ማስታወሻ:** የDaily Reminder አሁን በbrowser ውስጥ አፕሊኬሽኑ ክፍት ሲሆን ነው የሚሰራው። Chrome ሙሉ በሙሉ ሲዘጋ ለbackground notification የPush service ያስፈልጋል።
 
-## ዜሮ ወጪ ደንብ
-
-Gemini እና OpenRouter የነፃ ገደባቸው ሲያልቅ Amharic generation ይቆማል። ወደ Paid fallback አይሄድም። OpenAI ለEnglish/Arabic ብቻ ነው እና ክፍያ ሊኖረው ይችላል።
-
-በManus ሪፖርት የGitHub URL፣ Commit SHA፣ Netlify Deploy status እና ያልተፈጸሙ ሙከራዎችን ጠይቅ።
+**API keys ወደ Manus chat አትላክ።** በNetlify Environment Variables ብቻ መቀመጥ አለባቸው።

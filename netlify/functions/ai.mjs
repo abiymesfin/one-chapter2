@@ -305,7 +305,10 @@ ${existingContent}
     const translationRule = /^(amharic|አማርኛ)$/i.test(targetLanguage)
       ? "Write natural, fluent Amharic using Ethiopic script only. Do not leave English sentences untranslated. Keep proper names, numbers and technical terms accurate. Do not add explanations."
       : `Write the entire translation naturally in ${targetLanguage}. Do not leave source-language sentences untranslated. Keep proper names, numbers, formatting and paragraph breaks accurate. Do not add explanations.`;
-    prompt = `Translate the user-provided text from ${String(body.from||"Auto-detect").slice(0,40)} into ${targetLanguage}. ${translationRule} Preserve meaning, tone, paragraph breaks, headings, names and formatting. Do not summarize, omit or add commentary. Text:\n\n${text}`;
+    const bookTitle = String(body.title || "").slice(0, 160);
+    const partNote = body.parts > 1 ? ` This is section ${Number(body.part) || 1} of ${Number(body.parts)} of one book; translate only this section and keep the same voice and terminology as the rest of the book.` : "";
+    const bookRule = "First decide from the text itself what kind of book this is (for example novel or story, poetry or songs, religious or devotional text, textbook, self-help, essay, biography, legal or technical text) and translate it in that genre's own register and literary form, not as plain flowing prose. Keep the book's structure exactly: chapter and section headings stay separate headings on their own lines, every paragraph stays its own paragraph, dialogue stays as dialogue with its quotation style, verse and lists keep their line breaks and numbering, and emphasis such as quotations or scripture references stays recognizable. Do not merge paragraphs, do not summarize, shorten, explain, or add notes.";
+    prompt = `Translate the user-provided book text from ${String(body.from||"Auto-detect").slice(0,40)} into ${targetLanguage}.${bookTitle ? ` Book title: "${bookTitle}".` : ""}${partNote} ${translationRule} ${bookRule} Return only the translation. Text:\n\n${text}`;
   } else return response(400, { error: "Unknown AI task." });
 
 

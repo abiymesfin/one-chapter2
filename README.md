@@ -1,17 +1,28 @@
-# Chapter One — V10.8 Free Amharic AI
+# Chapter One — V10.10
 
-This release preserves the existing mobile-first book creation/reading app, Supabase authentication and cloud library, PDF/DOCX/TXT/MD Translator, local chapter drafts and free Canvas cover options.
+Mobile-first book creation, PDF import/translation, library and reader app. V10.10 applies the supplied editorial UI reference and owner-provided logo, adds two import paths, Recently Deleted recovery, and daily reading reminder settings while preserving the existing Supabase and AI backend.
+
+## Start here
+- `MANUS-START-HERE-AM.md` — Amharic instructions.
+- `MANUS-PROMPT.md` — complete Manus task.
+- `V10.10-RELEASE-NOTES.md` — release changes and QA status.
+- `V10.11-REFERENCE-MATCH-NOTES.md` — Home/Library pixel match to the reference photo.
+- `assets/chapter-one-ui-reference.jpg` — user-provided UI reference.
+- `assets/chapter-one-logo.png` — processed transparent logo supplied by the owner.
 
 ## AI routing
+- Amharic: existing Gemini Developer API Free Tier route first; optional fixed `:free` OpenRouter backup. Never OpenAI or paid fallback for Amharic.
+- English, Arabic and other non-Amharic: existing OpenAI route. API usage may incur charges.
+- Amharic free quotas fail → request stops with an error; no paid fallback.
 
-- Amharic: Gemini Developer API Free Tier (`gemini-3.8-flash`) first; optional OpenRouter Gemma `google/gemma-4-26b-a4b-it:free` backup. Never uses OpenAI or a paid provider for Amharic.
-- English, Arabic and other languages: retain the existing OpenAI route; these requests may incur API charges.
-- When free Amharic quotas are exhausted, requests stop without paid fallback.
+## Security / deployment
+- Supabase Auth and user book cloud sync are preserved.
+- Netlify Functions: `netlify/functions`; publish directory `.`.
+- Provider keys must be set in Netlify Environment Variables only. Never commit keys.
+- Existing site: https://one-chapter.netlify.app. No deployment is claimed by this local package.
 
-## Security
+## Checks
+Run `node --test tests/ai-routing.test.mjs`. See `V10.10-RELEASE-NOTES.md` for checks performed and items not tested.
 
-AI POST requests require an active Supabase session. The Netlify function validates the bearer token through Supabase Auth before using provider keys. Only the existing public Supabase URL and publishable key are used; never use a service-role key.
-
-## Setup and deployment
-
-Read `MANUS-START-HERE-AM.md`, `MANUS-PROMPT.md` and `ZERO-COST-AMHARIC-SETUP.md`. Existing Netlify site: https://one-chapter.netlify.app. No build command; publish `.`; functions `netlify/functions`.
+## V10.13
+See V10.13-NOTES.md (clean slate, restore fixes, online Amharic/male voice).
